@@ -44,6 +44,13 @@ class _MyList extends State<List> {
           child: const Icon(Icons.add),
           onPressed: () {
             print("新規作成ボタンをおしました");
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                settings: const RouteSettings(name: "/new"),
+                builder: (BuildContext context) => InputForm(),
+              )
+            );
           }
       ),
     );
@@ -75,6 +82,100 @@ class _MyList extends State<List> {
             ),
           )
         ],
+      )
+    );
+  }
+}
+
+class InputForm extends StatefulWidget {
+  @override
+  _MyInputFormState createState() => _MyInputFormState();
+}
+
+class _FormData {
+  String borrowOrLend = "borrow";
+  String user;
+  String stuff;
+  DateTime date = DateTime.now();
+}
+
+class _MyInputFormState extends State<InputForm> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final _FormData _data = _FormData();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('かしかり入力'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.save),
+            onPressed: () {
+              print("保存ボタンを推しました");
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: () {
+              print('削除ボタンを推しました');
+            },
+          ),
+        ],
+      ),
+      body: SafeArea(
+        child:
+        Form(
+          key: _formKey,
+          child: ListView(
+            padding: const EdgeInsets.all(20.0),
+            children: <Widget>[
+              RadioListTile(
+                value: "borrow",
+                groupValue: _data.borrowOrLend,
+                title: Text("借りた"),
+                onChanged: (String value) {
+                  print("借りたをタッチしました");
+                },
+              ),
+              RadioListTile(
+                value: "lend",
+                groupValue: _data.borrowOrLend,
+                title: Text("貸した"),
+                onChanged: (String value) {
+                  print("貸したをタッチしました");
+                },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
+                  icon: const Icon(Icons.person),
+                  hintText: '相手の名前',
+                  labelText: 'Name',
+                ),
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
+                  icon: const Icon(Icons.business_center),
+                  hintText: '借りたもの、貸したもの',
+                  labelText: 'loan',
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(top:8.0),
+                child: Text("締切日:${_data.date.toString().substring(0,10)}"),
+              ),
+
+              RaisedButton(
+                child: const Text("締切日変更"),
+                onPressed: () {
+                  print("締切日をタッチしました");
+                },
+              )
+
+            ],
+          ),
+        ),
       )
     );
   }
