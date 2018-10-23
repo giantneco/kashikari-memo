@@ -40,6 +40,12 @@ class _MyList extends State<List> {
           },
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () {
+            print("新規作成ボタンをおしました");
+          }
+      ),
     );
   }
 
@@ -56,6 +62,18 @@ class _MyList extends State<List> {
                 + document['date'].toString().substring(0,10)
                 + "\n相手 : " + document['user']),
           ),
+          ButtonTheme.bar(
+            child: ButtonBar(
+              children: <Widget>[
+                FlatButton(
+                  child: const Text("へんしゅう"),
+                  onPressed: () {
+                    print("編集ボタンを推しました");
+                  },
+                )
+              ],
+            ),
+          )
         ],
       )
     );
