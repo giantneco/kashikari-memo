@@ -23,7 +23,7 @@ class _MyList extends State<List> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("リスト画面"),
+        title: const Text("リスト"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -52,7 +52,7 @@ class _MyList extends State<List> {
             leading: const Icon(Icons.android),
             title: Text("【" + (document['borrowOrLend'] == "lend" ? "貸" : "借")
                 + "】" + document['stuff']),
-            subtitle: Text('期限 : '
+            subtitle: Text("期限 :"
                 + document['date'].toString().substring(0,10)
                 + "\n相手 : " + document['user']),
           ),
