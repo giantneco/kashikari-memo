@@ -132,6 +132,7 @@ class _MyInputFormState extends State<InputForm> {
 
     DocumentReference _mainReference;
     _mainReference = Firestore.instance.collection('kashikari-memo').document();
+    bool deleteFlg = false;
 
     if (widget.document != null) {
       if (_data.user == null && _data.stuff == null) {
@@ -141,6 +142,7 @@ class _MyInputFormState extends State<InputForm> {
         _data.date = widget.document['date'];
       }
       _mainReference = Firestore.instance.collection('kashikari-memo').document(widget.document.documentID);
+      deleteFlg = true;
     }
 
     return Scaffold(
@@ -155,15 +157,23 @@ class _MyInputFormState extends State<InputForm> {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
                 _mainReference.setData(
-                  {
-                    'borrowdOrLend': _data.borrowOrLend,
-                    'user': _data.user,
-                    'stuff': _data.stuff,
-                    'date': _data.date
-                  }
+                    {
+                      'borrowdOrLend': _data.borrowOrLend,
+                      'user': _data.user,
+                      'stuff': _data.stuff,
+                      'date': _data.date
+                    }
                 );
                 Navigator.pop(context);
               }
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: !deleteFlg? null : () {
+              print("削除ボタンを押しました");
+              _mainReference.delete();
+              Navigator.pop(context);
             },
           )
         ],
