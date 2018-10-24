@@ -20,6 +20,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   cloud_firestore: ^0.7.3
+  firebase_auth: ^0.5.20
+  fluttertoast: ^2.0.7
 
 dev_dependencies:
   flutter_test:
